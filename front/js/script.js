@@ -1,3 +1,5 @@
+import getFromUrl from "./utils.js";
+
 const data = await getData();
 
 display(data)
