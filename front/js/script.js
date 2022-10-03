@@ -1,6 +1,6 @@
-import getFromUrl from "./utils.js";
+import { getData } from "./utils.js";
 
-const data = await getData();
+const data = await getData('http://localhost:3000/api/products');
 
 display(data)
 
@@ -25,6 +25,3 @@ function renderProduct(product) {
           </a>`;
 }
 
-async function getData() {
-    return fetch('http://localhost:3000/api/products').then((res) => res.json())
-}
