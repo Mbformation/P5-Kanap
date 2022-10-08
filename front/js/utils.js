@@ -11,4 +11,24 @@ async function getData(url) {
     return fetch(url).then((res) => res.json())
 }
 
-export { getFromUrl, getData };
+function get(key) {
+    if (!localStorage.getItem(key)) {
+        return null;
+    }
+    return JSON.parse(localStorage.getItem(key));
+}
+
+function store(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+}
+
+function money(value) {
+    const formatter = new Intl.NumberFormat('fr-FR', {
+        style: 'currency',
+        currency: 'EUR',
+    });
+
+    return formatter.format(value);
+}
+
+export { getFromUrl, getData, get, money, store };

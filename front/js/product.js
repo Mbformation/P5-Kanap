@@ -26,7 +26,7 @@ function listenForCartAddition(product) {
             return;
         }
 
-        if (!product.color.includes(color)) {
+        if (!product.colors.includes(color)) {
             alert('Veuillez sélectionner une couleur existante')
             return;
         }
@@ -44,10 +44,10 @@ function listenForCartAddition(product) {
         // Enregistrer dans le local storage
 
         //Première fois
-        const firstTime = localStorage.getItem('products');
+        const firstTime = !localStorage.getItem('products');
 
         if (firstTime) {
-            const products = []
+            const products = [];
             products.push({
                 id: product._id,
                 color,
@@ -69,13 +69,13 @@ function listenForCartAddition(product) {
                 color,
                 qty
             })
-            localStorage.setItem('products', JSON.stringify(products));
+            localStorage.setItem('products', JSON.stringify(storage));
             alert('ce produit a été ajouté pour la deuxième fois dans votre panier mais une couleur différente.')
             return;
         }
 
         productExists.qty = Number(productExists.qty) + Number(qty)
-        localStorage.setItem('products', JSON.stringify(products));
+        localStorage.setItem('products', JSON.stringify(storage));
         alert('ce produit a été ajouté pour la deuxième fois dans votre panier avec la même couleur.')
 
 
@@ -86,31 +86,22 @@ function listenForCartAddition(product) {
 
 
 
-
 function display(product) {
     const img = document.createElement('img');
     img.setAttribute('src', product.imageUrl);
-    document.querySelector('.item__img').appendChild(img)
+    document.querySelector('.item__img').appendChild(img);
 
-    document.querySelector('#title').innerHTML += product.name;
-    document.querySelector('#price').innerHTML += product.price;
-    document.querySelector('#description').innerHTML += product.description;
-    for (let i = 0; i < product.colors.length; i++)
-        document.querySelector('#colors').innerHTML += '<option>' + product.colors[i] + '</option>';
+    const title = document.querySelector('#title');
+    title.innerText = product.name;
 
-    /*const title = document.createElement('h1');
-    title.setAttribute('src', product.name);
-    document.querySelector('.title').appendChild(title)
+    const price = document.querySelector('#price')
+    price.innerText = product.price;
 
-    const price = document.createElement('span');
-    price.setAttribute('src', product.price);
-    document.querySelector('#price').appendChild(price)
+    const description = document.querySelector('#description')
+    description.innerText = product.description;
 
-    const description = document.createElement('p');
-    description.setAttribute('src', product.description);
-    document.querySelector('#description').appendChild(description)
+    product.colors.forEach(color => {
+        document.querySelector('#colors').innerHTML += `<option>${color}</option>`;
+    })
 
-    const colors = document.createElement('option');
-    colors.setAttribute('src', product.colors);
-    document.querySelector('#colors').appendChild(colors)*/
 }
