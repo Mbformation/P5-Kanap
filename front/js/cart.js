@@ -25,7 +25,6 @@ function listenForProductDeletion() {
             const storage = get('products');
             const index = storage.findIndex(a => a.id == id && color == a.color);
             storage.splice(index, 1);
-            product.qty = qty
             store('products', storage)
             location.reload();
         })
@@ -60,15 +59,15 @@ function display(products) {
 
 function countTotals(products) {
     let total = 0;
-    const qty = 0;
+    let qty = 0;
 
     products.forEach(product => {
         qty += Number(product.qty);
         total += Number(product.qty) * Number(product.price)
     })
 
-    document.querySelector('.totalQuantity').innerText = qty
-    document.querySelector('.totalPrice').innerText = money(total)
+    document.querySelector('#totalQuantity').innerText = qty
+    document.querySelector('#totalPrice').innerText = money(total)
 }
 
 function buildCompleteList(products) {
@@ -102,12 +101,12 @@ function displayProduct(product) {
       <div class="cart__item__content__settings">
         <div class="cart__item__content__settings__quantity">
           <p>Qté : </p>
-          <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="42">
+          <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${product.qty}">
         </div>
         <div class="cart__item__content__settings__delete">
           <p class="deleteItem">Supprimer</p>
         </div>
       </div>
     </div>
-  </article> -->`
+  </article>`
 }
