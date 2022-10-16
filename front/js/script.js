@@ -5,17 +5,17 @@ const data = await getData('http://localhost:3000/api/products');
 display(data)
 
 function display(data) {
-    let html = '';
+  let html = '';
 
-    data.forEach(product => {
-        html += renderProduct(product)
-    });
+  data.forEach(product => {
+    html += renderProduct(product)
+  });
 
-    document.querySelector('#items').innerHTML = html
+  document.querySelector('#items').innerHTML = html;
 }
 
 function renderProduct(product) {
-    return `
+  return `
     <a href="./product.html?id=${product._id}">
             <article>
               <img src="${product.imageUrl}" alt="${product.altTxt}">

@@ -8,7 +8,13 @@ function getFromUrl(key) {
 
 
 async function getData(url) {
-    return fetch(url).then((res) => res.json())
+    return fetch(url).then((res) => {
+        if (res.status === 200) {
+            res.json()
+            return;
+        }
+        return new Error();
+    })
 }
 
 function get(key) {

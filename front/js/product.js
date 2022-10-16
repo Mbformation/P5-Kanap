@@ -4,14 +4,22 @@ import { getFromUrl, getData } from "./utils.js";
 let id = getFromUrl('id');
 
 // Récupérer les données du produit
-const product = await getData('http://localhost:3000/api/products/' + id);
+try {
+    const product = await getData('http://localhost:3000/api/products/' + id);
 
-// Afficher le produit
-display(product)
+    // Afficher le produit
+    display(product)
 
 
-// Ecouter l'ajout au panier
-listenForCartAddition(product);
+    // Ecouter l'ajout au panier
+    listenForCartAddition(product);
+
+} catch (e) {
+    document.querySelector('main').innerHTML = "<h1>Le produit sélectionné n'existe pas</h1>"
+}
+
+
+
 
 function listenForCartAddition(product) {
 

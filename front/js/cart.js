@@ -37,11 +37,9 @@ function listenForProductQtyChange() {
             const qty = e.target.value
             const id = input.closest('.cart__item').dataset.id
             const color = input.closest('.cart__item').dataset.color
-
             const storage = get('products');
             const product = storage.find(a => a.id == id && color == a.color);
-
-            product.qty = qty
+            storage.splice(index, 1);
             store('products', storage)
             location.reload();
         })
