@@ -13,7 +13,7 @@ if (!get('products') || get('products').length === 0) {
 
     listenForProductQtyChange();
     listenForProductDeletion();
-
+    initForm();
 }
 
 function listenForProductDeletion() {

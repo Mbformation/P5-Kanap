@@ -1,12 +1,7 @@
 import { get } from "./utils.js";
 
 function initForm() {
-    listenForSubmission()
-
-}
-
-function listenForSubmission() {
-    document.querySelector('order').addEventListener('click', async (e) => {
+    document.querySelector('#order').addEventListener('click', async (e) => {
         e.preventDefault();
         const firstNameInput = document.querySelector('#firstName')
         const lastNameInput = document.querySelector('#lastName')
@@ -22,7 +17,6 @@ function listenForSubmission() {
             !isCityElValid(cityInput)
 
         ) {
-            console.log('Erreur Input')
             return;
         }
         const payload = {
