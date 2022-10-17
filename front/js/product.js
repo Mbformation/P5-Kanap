@@ -1,4 +1,4 @@
-import { getFromUrl, getData } from "./utils.js";
+import { getFromUrl, getData, money } from "./utils.js";
 
 // Récupérer l'id
 let id = getFromUrl('id');
@@ -103,7 +103,7 @@ function display(product) {
     title.innerText = product.name;
 
     const price = document.querySelector('#price')
-    price.innerText = product.price;
+    price.innerText = money(product.price);
 
     const description = document.querySelector('#description')
     description.innerText = product.description;
