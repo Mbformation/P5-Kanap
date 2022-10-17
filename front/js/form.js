@@ -12,9 +12,9 @@ function initForm() {
         if (
             !isFirstNameElValid(firstNameInput) ||
             !isLastNameElValid(lastNameInput) ||
-            !isEmailElValid(emailInput) ||
             !isAddressElValid(addressInput) ||
-            !isCityElValid(cityInput)
+            !isCityElValid(cityInput) ||
+            !isEmailElValid(emailInput)
 
         ) {
             return;
@@ -39,7 +39,7 @@ function initForm() {
             body: JSON.stringify(payload)
         }).then(res => res.json())
 
-        location.href = `confirmation.html?orderId=${result.orderID}`
+        location.href = `confirmation.html?orderId=${result.orderId}`
     })
 }
 
@@ -94,7 +94,7 @@ function showError(input, message) {
     input.nextElementSibling.innerText = message;
 }
 
-function hideError(input, message) {
+function hideError(input) {
     input.nextElementSibling.innerText = '';
 }
 
