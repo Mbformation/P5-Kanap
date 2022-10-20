@@ -20,6 +20,6 @@
 
 ## III - Demarrer le projet front
 <pre>
-   - ouvrer un autre terminal en vous rendant dans le projet
+   - ouvrir un autre terminal en vous rendant dans le projet
    - http-server front
 </pre>
