@@ -45,7 +45,7 @@ function initForm() {
 
 function isFirstNameElValid(input) {
     hideError(input)
-    if (input.value.length < 5) {
+    if (input.value.trim(" ").length < 3) {
         showError(input, "Le prénom n'est pas valide")
         return false;
     }
@@ -54,7 +54,7 @@ function isFirstNameElValid(input) {
 
 function isLastNameElValid(input) {
     hideError(input)
-    if (input.value.length < 3) {
+    if (input.value.trim(" ").length < 3) {
         showError(input, "Le nom de famille n'est pas valide")
         return false;
     }
@@ -74,7 +74,7 @@ function isEmailElValid(input) {
 
 function isAddressElValid(input) {
     hideError(input)
-    if (input.value.length < 10) {
+    if (input.value.trim(" ").length < 10) {
         showError(input, "L'adresse n'est pas valide")
         return false;
     }
@@ -83,7 +83,7 @@ function isAddressElValid(input) {
 
 function isCityElValid(input) {
     hideError(input)
-    if (input.value.length < 5) {
+    if (input.value.trim(" ").length < 3) {
         showError(input, "La ville n'est pas valide")
         return false;
     }
