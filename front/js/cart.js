@@ -35,6 +35,10 @@ function listenForProductQtyChange() {
     document.querySelectorAll('.itemQuantity').forEach(input => {
         input.addEventListener('input', (e) => {
             const qty = e.target.value
+            if (qty < 1 || qty > 99) {
+                alert("Merci de sélectionner une quantité entre 1 et 100")
+                return;
+            }
             const id = input.closest('.cart__item').dataset.id
             const color = input.closest('.cart__item').dataset.color
             const storage = get('products');
