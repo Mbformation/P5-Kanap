@@ -1,14 +1,17 @@
 import { get } from "./utils.js";
 
+// On écoute la soumission du formulaire
 function initForm() {
     document.querySelector('#order').addEventListener('click', async (e) => {
         e.preventDefault();
+        // On récupère les éléments DOM du formulaire
         const firstNameInput = document.querySelector('#firstName')
         const lastNameInput = document.querySelector('#lastName')
         const emailInput = document.querySelector('#email')
         const addressInput = document.querySelector('#address')
         const cityInput = document.querySelector('#city')
 
+        // On valide le formulaire
         if (
             !isFirstNameElValid(firstNameInput) ||
             !isLastNameElValid(lastNameInput) ||
@@ -19,6 +22,7 @@ function initForm() {
         ) {
             return;
         }
+        // On prépare le corps de la requête
         const payload = {
             contact: {
                 firstName: firstNameInput.value,
@@ -27,9 +31,10 @@ function initForm() {
                 city: cityInput.value,
                 email: emailInput.value,
             },
-            products: get('products').map(a => a.id)
+            products: get('products').map(a => a.id) // on récupère uniquement les ID de chaque produit
         }
 
+        // On envoie les données à l'API
         const result = await fetch('http://localhost:3000/api/products/order', {
             method: 'POST',
             headers: {
@@ -38,11 +43,12 @@ function initForm() {
             },
             body: JSON.stringify(payload)
         }).then(res => res.json())
-
+        // On redirige vers la page confirmation avec le numéro de commande dans l'url
         location.href = `confirmation.html?orderId=${result.orderId}`
     })
 }
 
+// On valide le prénom en permettant les accents, les traits d'union et apostrophes pour un maximum de trois mots
 function isFirstNameElValid(input) {
     hideError(input)
 
@@ -53,6 +59,7 @@ function isFirstNameElValid(input) {
     }
     return true;
 }
+// On valide le nom en permettant les accents, les traits d'union et apostrophes pour un maximum de trois mots
 
 function isLastNameElValid(input) {
     hideError(input)
@@ -64,7 +71,7 @@ function isLastNameElValid(input) {
     }
     return true;
 }
-
+// On valide l'email afin d'avoir au moins un arobase, un point...
 function isEmailElValid(input) {
     hideError(input)
 
@@ -76,6 +83,7 @@ function isEmailElValid(input) {
     return true;
 }
 
+// On vérifie qu'il y a au moins 5 caractères sans espace
 function isAddressElValid(input) {
     hideError(input)
     if (input.value.trim(" ").length < 5) {
@@ -84,6 +92,7 @@ function isAddressElValid(input) {
     }
     return true;
 }
+// On vérifie qu'il y a au moins 3 caractères sans espace
 
 function isCityElValid(input) {
     hideError(input)
@@ -94,10 +103,12 @@ function isCityElValid(input) {
     return true;
 }
 
+// On affiche une erreur avec un message
 function showError(input, message) {
     input.nextElementSibling.innerText = message;
 }
 
+// On cache l'erreur
 function hideError(input) {
     input.nextElementSibling.innerText = '';
 }

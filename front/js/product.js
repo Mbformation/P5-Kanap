@@ -1,10 +1,10 @@
-import { getFromUrl, getData, money } from "./utils.js";
+import { getFromUrl, getData, money, get, store } from "./utils.js";
 
 // Récupérer l'id
 let id = getFromUrl('id');
 
-// Récupérer les données du produit
 try {
+    // Récupérer les données du produit
     const product = await getData('http://localhost:3000/api/products/' + id);
 
     // Afficher le produit
@@ -15,77 +15,82 @@ try {
     listenForCartAddition(product);
 
 } catch (e) {
+    // Si erreur, on affiche un message d'alerte
     document.querySelector('main').innerHTML = "<h1>Le produit sélectionné n'existe pas</h1>"
 }
 
 
 
-
+// On écoute le souhaite d'utilisateur d'ajouter un produit au panier
 function listenForCartAddition(product) {
 
     document.querySelector('#addToCart').addEventListener('click', () => {
 
-        const color = document.querySelector('#colors').value;
+        const color = document.querySelector('#colors').value; // On récupère la couleur souhaitée
 
-        const qty = Number(document.querySelector('#quantity').value);
+        const qty = Number(document.querySelector('#quantity').value); // On récupère la quantité souhaitée
 
+        // On vérifie qu'une couleur a bien été sélectionnée
         if (color === "") {
             alert('Veuillez sélectionner une couleur')
             return;
         }
-
+        // On vérifie que la couleur choisie existe bien
         if (!product.colors.includes(color)) {
             alert('Veuillez sélectionner une couleur existante')
             return;
         }
-
+        // On vérifie qu'une quantité a été choisie
         if (qty === '') {
             alert('Veuillez sélectionner une quantité')
             return;
         }
-
+        // On vérifie que la quantité est comprise entre 1 et 100
         if (qty < 1 || qty > 100) {
             alert('Veuillez sélectionner une quantité comprise entre 1 et 100')
             return;
         }
 
-        // Enregistrer dans le local storage
+        // Enregistrer dans le panier
 
-        //Première fois
-        const firstTime = !localStorage.getItem('products');
+        // On vérifie si le panier est vide
+        const isFirstTime = !get('products');
 
-        if (firstTime) {
+        if (isFirstTime) {
             const products = [];
             products.push({
                 id: product._id,
                 color,
                 qty
             })
-            localStorage.setItem('products', JSON.stringify(products));
+            // On enregistre dans le panier
+            store('products', products);
             alert("ce produit a été ajouté pour la première fois dans votre panier. Vous serez redirigé vers la page d'accueil.")
             window.location.href = "/"
             return;
         }
 
-        //Est-ce que le produit existe dans le localStorage
-        let storage = JSON.parse(localStorage.getItem('products'));
+        let storage = get('products');
+
 
         const productExists = storage.find(a => a.id == product._id && color === a.color)
-
+        // Si le produit n'existe pas dans le panier
         if (!productExists) {
             storage.push({
                 id: product._id,
                 color,
                 qty
             })
-            localStorage.setItem('products', JSON.stringify(storage));
+            // On enregistre dans le panier
+            store('products', storage);
             alert("ce produit a déjà été ajouté dans votre panier mais une couleur différente. Vous serez redirigé vers la page d'accueil.")
             window.location.href = "/"
             return;
         }
-
+        // Si le produit existe dans le panier
         productExists.qty = Number(productExists.qty) + Number(qty)
-        localStorage.setItem('products', JSON.stringify(storage));
+        // On enregistre dans le panier
+        store('products', storage);
         alert("ce produit a déjà été ajouté dans votre panier avec la même couleur. Vous serez redirigé vers la page d'accueil.")
         window.location.href = "/"
 
@@ -96,7 +101,7 @@ function listenForCartAddition(product) {
 
 
 
-
+// On affiche le produit
 function display(product) {
     const img = document.createElement('img');
     img.setAttribute('src', product.imageUrl);
