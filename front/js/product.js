@@ -65,7 +65,7 @@ function listenForCartAddition(product) {
             })
             // On enregistre dans le panier
             store('products', products);
-            alert("ce produit a été ajouté pour la première fois dans votre panier. Vous serez redirigé vers la page d'accueil.")
+            alert("Ce produit a été ajouté pour la première fois dans votre panier. Vous serez redirigé vers la page d'accueil.")
             window.location.href = "/"
             return;
         }
@@ -83,7 +83,7 @@ function listenForCartAddition(product) {
             })
             // On enregistre dans le panier
             store('products', storage);
-            alert("ce produit a déjà été ajouté dans votre panier mais une couleur différente. Vous serez redirigé vers la page d'accueil.")
+            alert("Ce produit a déjà été ajouté dans votre panier mais une couleur différente. Vous serez redirigé vers la page d'accueil.")
             window.location.href = "/"
             return;
         }
@@ -91,7 +91,7 @@ function listenForCartAddition(product) {
         productExists.qty = Number(productExists.qty) + Number(qty)
         // On enregistre dans le panier
         store('products', storage);
-        alert("ce produit a déjà été ajouté dans votre panier avec la même couleur. Vous serez redirigé vers la page d'accueil.")
+        alert("Ce produit a déjà été ajouté dans votre panier avec la même couleur. Vous serez redirigé vers la page d'accueil.")
         window.location.href = "/"
 
 
