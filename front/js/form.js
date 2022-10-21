@@ -45,7 +45,9 @@ function initForm() {
 
 function isFirstNameElValid(input) {
     hideError(input)
-    if (input.value.trim(" ").length < 3) {
+
+    const isValid = String(input.value).toLowerCase().match(/^[a-zéèêçïîôà\']{2,50}(-| )?([a-zé\'èêçïîôà]{2,50})?(-| )?([a-zé\'èêçïîôà]{2,50})?$/g);
+    if (!isValid) {
         showError(input, "Le prénom n'est pas valide")
         return false;
     }
@@ -54,7 +56,9 @@ function isFirstNameElValid(input) {
 
 function isLastNameElValid(input) {
     hideError(input)
-    if (input.value.trim(" ").length < 3) {
+
+    const isValid = String(input.value).toLowerCase().match(/^[a-zéèêçïîôà\']{2,50}(-| )?([a-zé\'èêçïîôà]{2,50})?(-| )?([a-zé\'èêçïîôà]{2,50})?$/g);
+    if (!isValid) {
         showError(input, "Le nom de famille n'est pas valide")
         return false;
     }
@@ -74,7 +78,7 @@ function isEmailElValid(input) {
 
 function isAddressElValid(input) {
     hideError(input)
-    if (input.value.trim(" ").length < 10) {
+    if (input.value.trim(" ").length < 5) {
         showError(input, "L'adresse n'est pas valide")
         return false;
     }

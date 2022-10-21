@@ -79,14 +79,14 @@ function listenForCartAddition(product) {
                 qty
             })
             localStorage.setItem('products', JSON.stringify(storage));
-            alert("ce produit a été ajouté pour la deuxième fois dans votre panier mais une couleur différente. Vous serez redirigé vers la page d'accueil.")
+            alert("ce produit a déjà été ajouté dans votre panier mais une couleur différente. Vous serez redirigé vers la page d'accueil.")
             window.location.href = "/"
             return;
         }
 
         productExists.qty = Number(productExists.qty) + Number(qty)
         localStorage.setItem('products', JSON.stringify(storage));
-        alert("ce produit a été ajouté pour la deuxième fois dans votre panier avec la même couleur. Vous serez redirigé vers la page d'accueil.")
+        alert("ce produit a déjà été ajouté dans votre panier avec la même couleur. Vous serez redirigé vers la page d'accueil.")
         window.location.href = "/"
 
 
